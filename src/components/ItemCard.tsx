@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { Colors } from "../Colors";
+import { addItemToCart, selectCartItems } from "../slices/cartSlice";
 import { updateItemNote, updateItemQuantity } from "../slices/menuSlice";
 import { Item } from "../types/Item";
 import Button from "./Button";
@@ -67,6 +68,7 @@ interface IItemCardProps {
 
 const ItemCard = ({ item }: IItemCardProps) => {
   const [note, setNote] = useState(item.note);
+  const cartItems = useAppSelector(selectCartItems);
   const dispatch = useAppDispatch();
 
   // will update the note of the item with a debounce of 700ms
@@ -134,7 +136,14 @@ const ItemCard = ({ item }: IItemCardProps) => {
             />
           </Field>
         </NoteToTheKitchen>
-        <Button style={{ height: "48px" }} small>
+        <Button
+          style={{ height: "48px" }}
+          small
+          onClick={() => dispatch(addItemToCart(item))}
+          disabled={cartItems.some(
+            (cartItem) => cartItem.foodid === item.foodid
+          )}
+        >
           Add to cart
         </Button>
       </OptionSection>
