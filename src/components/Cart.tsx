@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { DeleteIcon, EmptyCartIcon } from "../assets/icons";
 import { Colors } from "../Colors";
@@ -118,11 +119,16 @@ const Cart = () => {
   const cartItems = useAppSelector(selectCartItems);
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+
   return (
     <Container>
       <Header>
         <span>Cart Summary</span>
-        <ClearCartButton onClick={() => dispatch(clearCart())}>
+        <ClearCartButton
+          disabled={cartItems.length === 0}
+          onClick={() => dispatch(clearCart())}
+        >
           <DeleteIcon />
         </ClearCartButton>
       </Header>
@@ -160,7 +166,9 @@ const Cart = () => {
               <CartTotal>
                 Total amount: $ {getTotalCostFromItems(cartItems)}
               </CartTotal>
-              <Button full>Proceed</Button>
+              <Button full onClick={() => navigate("/payment")}>
+                Proceed
+              </Button>
             </ProceedArea>
           </>
         )}

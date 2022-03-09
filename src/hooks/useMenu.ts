@@ -3,7 +3,6 @@ import { useAppDispatch } from "../app/hooks";
 import { API_URL } from "../constants";
 import { setMenu } from "../slices/menuSlice";
 import { Category } from "../types/Category";
-import { Item } from "../types/Item";
 import { convertDataToCategories, convertDataToItems } from "../utils.ts";
 
 const useMenu = () => {
