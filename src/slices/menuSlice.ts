@@ -22,6 +22,11 @@ type UpdateItemSessionPayload = {
   session: string;
 };
 
+type UpdateItemNotePayload = {
+  id: string;
+  note: string;
+};
+
 const menuSlice = createSlice({
   name: "menuSlice",
   initialState,
@@ -52,6 +57,13 @@ const menuSlice = createSlice({
       if (itemToFind < 0) return;
       state.items[itemToFind].session = action.payload.session;
     },
+    updateItemNote: (state, action: PayloadAction<UpdateItemNotePayload>) => {
+      const itemToFind = state.items.findIndex(
+        (item) => item.foodid === action.payload.id
+      );
+      if (itemToFind < 0) return;
+      state.items[itemToFind].note = action.payload.note;
+    },
   },
 });
 
@@ -60,6 +72,7 @@ export const {
   setMenu,
   updateItemQuantity,
   updateItemSession,
+  updateItemNote,
 } = menuSlice.actions;
 
 export const selectCategory = (rootState: RootState) =>

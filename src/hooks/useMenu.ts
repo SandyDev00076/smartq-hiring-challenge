@@ -28,7 +28,7 @@ const useMenu = () => {
       }
     }
     fetchMenu();
-  }, []);
+  }, [dispatch]);
 
   return {
     categories,

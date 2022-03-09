@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 import { useAppDispatch } from "../app/hooks";
 import { Colors } from "../Colors";
-import { updateItemQuantity } from "../slices/menuSlice";
+import { updateItemNote, updateItemQuantity } from "../slices/menuSlice";
 import { Item } from "../types/Item";
 import Button from "./Button";
 import Field from "./Field";
@@ -65,8 +66,22 @@ interface IItemCardProps {
 }
 
 const ItemCard = ({ item }: IItemCardProps) => {
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState(item.note);
   const dispatch = useAppDispatch();
+
+  // will update the note of the item with a debounce of 700ms
+  const debouncedNoteUpdate = useDebouncedCallback(() => {
+    dispatch(
+      updateItemNote({
+        id: item.foodid,
+        note,
+      })
+    );
+  }, 700);
+
+  useEffect(() => {
+    debouncedNoteUpdate();
+  }, [note, debouncedNoteUpdate]);
 
   return (
     <Container>
