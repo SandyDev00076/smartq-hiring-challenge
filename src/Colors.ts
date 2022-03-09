@@ -6,4 +6,5 @@ export const Colors = {
   textSecondary: "#a5a5a5",
   divider: "#a2cbf4",
   background: "#F9F9F9",
+  disabled: "#C6C6C6",
 };
