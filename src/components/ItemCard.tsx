@@ -5,10 +5,11 @@ import { Item } from "../types/Item";
 
 const Container = styled.div`
   padding: 32px;
-  box-shadow: 3.6px 4.4px 10px rgba(0, 0, 0, 0.06),
-    29px 35px 80px rgba(0, 0, 0, 0.12);
+  box-shadow: 12.5px 3.9px 10px rgba(0, 0, 0, 0.015),
+    100px 31px 80px rgba(0, 0, 0, 0.03);
   border-radius: 10px;
   margin-bottom: 24px;
+  background-color: ${Colors.white};
 `;
 
 const DetailRow = styled.div`
@@ -30,7 +31,7 @@ const Name = styled.h3`
 `;
 
 const Description = styled.h4`
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: ${Colors.textSecondary};
 `;
 
