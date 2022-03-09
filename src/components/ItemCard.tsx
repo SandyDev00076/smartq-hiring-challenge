@@ -115,7 +115,15 @@ const ItemCard = ({ item }: IItemCardProps) => {
           <Input full />
         </Field>
         <Field label="Sub Total">
-          <Input full readOnly value={`$${item.price * item.quantity}`} />
+          <Input
+            full
+            readOnly
+            value={
+              isNaN(item.price * item.quantity)
+                ? "--"
+                : `$${item.price * item.quantity}`
+            }
+          />
         </Field>
         <NoteToTheKitchen>
           <Field label="Note to the kitchen">
