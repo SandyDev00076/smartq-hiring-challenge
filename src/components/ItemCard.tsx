@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import { Colors } from "../Colors";
 import { Item } from "../types/Item";
+import Button from "./Button";
 
 const Container = styled.div`
   padding: 32px;
@@ -15,6 +16,9 @@ const Container = styled.div`
 const DetailRow = styled.div`
   display: flex;
   gap: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed ${Colors.divider};
+  margin-bottom: 16px;
 `;
 
 const ItemImage = styled.img`
@@ -33,6 +37,7 @@ const Name = styled.h3`
 const Description = styled.h4`
   font-size: 0.9rem;
   color: ${Colors.textSecondary};
+  margin-bottom: 8px;
 `;
 
 const Price = styled.h2`
@@ -52,6 +57,7 @@ const ItemCard = ({ item }: IItemCardProps) => {
         <MiddleSection>
           <Name>{item.foodname}</Name>
           <Description>{item.fooddescription}</Description>
+          <Button small>Add ons</Button>
         </MiddleSection>
         <Price>${item.price}</Price>
       </DetailRow>
