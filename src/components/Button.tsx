@@ -10,6 +10,7 @@ const Container = styled.button<IContainerProps>`
   border-radius: 10px;
   background-color: ${Colors.primary};
   color: ${Colors.white};
+  font-weight: bold;
   padding: ${(props) => (props.small ? "8px 16px" : "16px")};
 
   &:hover {
