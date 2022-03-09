@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
+import { useAppDispatch } from "../app/hooks";
 import { SearchIcon } from "../assets/icons";
 import { Colors } from "../Colors";
+import { updateSearchQuery } from "../slices/searchSlice";
 
 const Container = styled.section`
   position: relative;
@@ -32,6 +35,15 @@ const IconContainer = styled.div`
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const dispatch = useAppDispatch();
+
+  const debouncedSearchQueryUpdate = useDebouncedCallback(() => {
+    dispatch(updateSearchQuery(searchQuery));
+  }, 500);
+
+  useEffect(() => {
+    debouncedSearchQueryUpdate();
+  }, [searchQuery, debouncedSearchQueryUpdate]);
 
   return (
     <Container>

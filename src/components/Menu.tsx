@@ -8,6 +8,7 @@ import { useAppSelector } from "../app/hooks";
 import { selectCategory, selectMenuItems } from "../slices/menuSlice";
 import ItemList from "./ItemList";
 import Cart from "./Cart";
+import { selectSearchQuery } from "../slices/searchSlice";
 
 const Layout = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const Menu = () => {
   const { categories } = useMenu();
   const selectedCategory = useAppSelector(selectCategory);
   const items = useAppSelector(selectMenuItems);
+  const searchQuery = useAppSelector(selectSearchQuery);
 
   const filteredItems = selectedCategory
     ? items.filter(
@@ -26,7 +28,11 @@ const Menu = () => {
           item.category.toLocaleLowerCase() ===
           selectedCategory.toLocaleLowerCase()
       )
-    : items;
+    : items.filter((item) =>
+        item.foodname
+          .toLocaleLowerCase()
+          .includes(searchQuery.toLocaleLowerCase())
+      );
 
   return (
     <MainContent>

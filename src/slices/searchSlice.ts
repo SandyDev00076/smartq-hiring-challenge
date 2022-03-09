@@ -1,22 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
 
-type StateType = string;
+type StateType = {
+  query: string;
+};
 
-const initialState: StateType = "";
+const initialState: StateType = {
+  query: "",
+};
 
 const searchSlice = createSlice({
   name: "SearchSlice",
   initialState,
   reducers: {
-    setSearhQuery: (state, action: PayloadAction<string>) => {
-      state = action.payload;
+    updateSearchQuery: (state, action: PayloadAction<string>) => {
+      state.query = action.payload;
     },
   },
 });
 
-export const { setSearhQuery } = searchSlice.actions;
+export const { updateSearchQuery } = searchSlice.actions;
 
-export const selectSearchQuery = (rootState: RootState) => rootState.search;
+export const selectSearchQuery = (rootState: RootState) =>
+  rootState.search.query;
 
 export default searchSlice.reducer;

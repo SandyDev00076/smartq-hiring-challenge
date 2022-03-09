@@ -31,7 +31,7 @@ const menuSlice = createSlice({
   name: "menuSlice",
   initialState,
   reducers: {
-    updateCategory: (state, action: PayloadAction<string>) => {
+    updateCategory: (state, action: PayloadAction<string | null>) => {
       state.selectedCategory = action.payload;
     },
     setMenu: (state, action: PayloadAction<Item[]>) => {

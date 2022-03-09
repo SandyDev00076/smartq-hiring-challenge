@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { Colors } from "../Colors";
+import { SEARCH_IMAGE_URL } from "../constants";
 import { selectCategory, updateCategory } from "../slices/menuSlice";
+import { selectSearchQuery } from "../slices/searchSlice";
 import { Category } from "../types/Category";
 
 const Container = styled.section`
@@ -42,10 +44,22 @@ interface ICategoriesProps {
 
 const Categories = (props: ICategoriesProps) => {
   const selectedCategory = useAppSelector(selectCategory);
+  const searchQuery = useAppSelector(selectSearchQuery);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (searchQuery === "") return;
+    dispatch(updateCategory(null));
+  }, [searchQuery, dispatch]);
 
   return (
     <Container>
+      {searchQuery !== "" && (
+        <CategoryItem selected onClick={() => {}}>
+          <img src={SEARCH_IMAGE_URL} alt="search" />
+          <h2>Searched Items</h2>
+        </CategoryItem>
+      )}
       {props.categories.map((category) => (
         <CategoryItem
           selected={selectedCategory === category.name}
