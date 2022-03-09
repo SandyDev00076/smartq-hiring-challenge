@@ -4,6 +4,7 @@ import { Colors } from "../Colors";
 
 interface IContainerProps {
   small: boolean;
+  full: boolean;
 }
 
 const Container = styled.button<IContainerProps>`
@@ -11,7 +12,8 @@ const Container = styled.button<IContainerProps>`
   background-color: ${Colors.primary};
   color: ${Colors.white};
   font-weight: bold;
-  padding: ${(props) => (props.small ? "8px 16px" : "16px")};
+  padding: ${(props) => (props.small ? "8px 16px" : "10px 16px")};
+  width: ${(props) => (props.full ? "100%" : "unset")};
 
   &:hover {
     background-color: ${Colors.primaryLight};
@@ -25,11 +27,17 @@ const Container = styled.button<IContainerProps>`
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   small?: boolean;
+  full?: boolean;
 }
 
-const Button = ({ small = false, children, ...props }: IButtonProps) => {
+const Button = ({
+  full = false,
+  small = false,
+  children,
+  ...props
+}: IButtonProps) => {
   return (
-    <Container small={small} {...props}>
+    <Container small={small} full={full} {...props}>
       {children}
     </Container>
   );

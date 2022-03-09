@@ -24,3 +24,9 @@ export function convertDataToItems(data: any[]): Item[] {
     note: "",
   }));
 }
+
+export function getTotalCostFromItems(items: Item[]) {
+  let result = 0;
+  items.forEach((item) => (result += item.quantity * item.price));
+  return result;
+}

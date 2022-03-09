@@ -7,6 +7,7 @@ import Categories from "./Categories";
 import { useAppSelector } from "../app/hooks";
 import { selectCategory, selectMenuItems } from "../slices/menuSlice";
 import ItemList from "./ItemList";
+import Cart from "./Cart";
 
 const Layout = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ const Menu = () => {
       <Layout>
         <Categories categories={categories} />
         <ItemList items={filteredItems} />
+        <Cart />
       </Layout>
     </MainContent>
   );
