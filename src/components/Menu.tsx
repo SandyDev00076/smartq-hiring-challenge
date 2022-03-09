@@ -17,6 +17,10 @@ const Layout = styled.div`
   gap: 32px;
 `;
 
+const MiddleSection = styled.div`
+  flex: 1;
+`;
+
 const Menu = () => {
   const { categories } = useMenu();
   const selectedCategory = useAppSelector(selectCategory);
@@ -40,7 +44,7 @@ const Menu = () => {
       <PageTitle>Build your Menu</PageTitle>
       <Layout>
         <Categories categories={categories} />
-        <section>
+        <MiddleSection>
           {selectedCategory && (
             <Banner
               name={selectedCategory}
@@ -52,7 +56,7 @@ const Menu = () => {
             />
           )}
           <ItemList items={filteredItems} />
-        </section>
+        </MiddleSection>
         <Cart />
       </Layout>
     </MainContent>
