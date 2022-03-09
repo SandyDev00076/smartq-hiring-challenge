@@ -9,6 +9,7 @@ import { selectCategory, selectMenuItems } from "../slices/menuSlice";
 import ItemList from "./ItemList";
 import Cart from "./Cart";
 import { selectSearchQuery } from "../slices/searchSlice";
+import Banner from "./Banner";
 
 const Layout = styled.div`
   display: flex;
@@ -39,7 +40,19 @@ const Menu = () => {
       <PageTitle>Build your Menu</PageTitle>
       <Layout>
         <Categories categories={categories} />
-        <ItemList items={filteredItems} />
+        <section>
+          {selectedCategory && (
+            <Banner
+              name={selectedCategory}
+              image={
+                categories.find(
+                  (category) => category.name === selectedCategory
+                )?.banner ?? ""
+              }
+            />
+          )}
+          <ItemList items={filteredItems} />
+        </section>
         <Cart />
       </Layout>
     </MainContent>
