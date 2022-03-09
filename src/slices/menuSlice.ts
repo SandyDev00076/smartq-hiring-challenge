@@ -12,6 +12,16 @@ const initialState: StateType = {
   items: [],
 };
 
+type UpdateItemQuantityPayload = {
+  id: string;
+  quantity: number;
+};
+
+type UpdateItemSessionPayload = {
+  id: string;
+  session: string;
+};
+
 const menuSlice = createSlice({
   name: "menuSlice",
   initialState,
@@ -22,10 +32,35 @@ const menuSlice = createSlice({
     setMenu: (state, action: PayloadAction<Item[]>) => {
       state.items = [...action.payload];
     },
+    updateItemQuantity: (
+      state,
+      action: PayloadAction<UpdateItemQuantityPayload>
+    ) => {
+      const itemToFind = state.items.findIndex(
+        (item) => item.foodid === action.payload.id
+      );
+      if (itemToFind < 0) return;
+      state.items[itemToFind].quantity = action.payload.quantity;
+    },
+    updateItemSession: (
+      state,
+      action: PayloadAction<UpdateItemSessionPayload>
+    ) => {
+      const itemToFind = state.items.findIndex(
+        (item) => item.foodid === action.payload.id
+      );
+      if (itemToFind < 0) return;
+      state.items[itemToFind].session = action.payload.session;
+    },
   },
 });
 
-export const { updateCategory, setMenu } = menuSlice.actions;
+export const {
+  updateCategory,
+  setMenu,
+  updateItemQuantity,
+  updateItemSession,
+} = menuSlice.actions;
 
 export const selectCategory = (rootState: RootState) =>
   rootState.menu.selectedCategory;

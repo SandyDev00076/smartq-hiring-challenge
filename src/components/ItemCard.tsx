@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useState } from "react";
+import { useAppDispatch } from "../app/hooks";
 import { Colors } from "../Colors";
+import { updateItemQuantity } from "../slices/menuSlice";
 import { Item } from "../types/Item";
 import Button from "./Button";
 import Field from "./Field";
@@ -63,6 +65,9 @@ interface IItemCardProps {
 }
 
 const ItemCard = ({ item }: IItemCardProps) => {
+  const [note, setNote] = useState("");
+  const dispatch = useAppDispatch();
+
   return (
     <Container>
       <DetailSection>
@@ -76,17 +81,34 @@ const ItemCard = ({ item }: IItemCardProps) => {
       </DetailSection>
       <OptionSection>
         <Field label="Quantity">
-          <Input full type="number" min={0} />
+          <Input
+            full
+            type="number"
+            min={0}
+            value={item.quantity}
+            onChange={(e) =>
+              dispatch(
+                updateItemQuantity({
+                  id: item.foodid,
+                  quantity: parseInt(e.target.value),
+                })
+              )
+            }
+          />
         </Field>
         <Field label="Session">
           <Input full />
         </Field>
         <Field label="Sub Total">
-          <Input full readOnly />
+          <Input full readOnly value={`$${item.price * item.quantity}`} />
         </Field>
         <NoteToTheKitchen>
           <Field label="Note to the kitchen">
-            <Input full />
+            <Input
+              full
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+            />
           </Field>
         </NoteToTheKitchen>
         <Button style={{ height: "48px" }} small>

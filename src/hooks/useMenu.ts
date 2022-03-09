@@ -4,6 +4,7 @@ import { API_URL } from "../constants";
 import { setMenu } from "../slices/menuSlice";
 import { Category } from "../types/Category";
 import { Item } from "../types/Item";
+import { convertDataToCategories } from "../utils.ts";
 
 const useMenu = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -18,13 +19,7 @@ const useMenu = () => {
 
         // setting the categories in the local variable and returning it
         // as there is no need to store it in global store
-        setCategories(
-          Object.keys(categoriesFromResponse).map((category) => ({
-            name: category,
-            banner: categoriesFromResponse[category].bannerImage,
-            icon: categoriesFromResponse[category].icon,
-          }))
-        );
+        setCategories(convertDataToCategories(categoriesFromResponse));
 
         // setting the menu items in redux store
         dispatch(setMenu(data.menu as Item[]));
