@@ -4,7 +4,7 @@ import { API_URL } from "../constants";
 import { setMenu } from "../slices/menuSlice";
 import { Category } from "../types/Category";
 import { Item } from "../types/Item";
-import { convertDataToCategories } from "../utils.ts";
+import { convertDataToCategories, convertDataToItems } from "../utils.ts";
 
 const useMenu = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -22,7 +22,7 @@ const useMenu = () => {
         setCategories(convertDataToCategories(categoriesFromResponse));
 
         // setting the menu items in redux store
-        dispatch(setMenu(data.menu as Item[]));
+        dispatch(setMenu(convertDataToItems(data.menu)));
       } catch (e) {
         console.error(e);
       }

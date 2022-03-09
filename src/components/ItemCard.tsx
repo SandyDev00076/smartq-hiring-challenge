@@ -140,9 +140,10 @@ const ItemCard = ({ item }: IItemCardProps) => {
           style={{ height: "48px" }}
           small
           onClick={() => dispatch(addItemToCart(item))}
-          disabled={cartItems.some(
-            (cartItem) => cartItem.foodid === item.foodid
-          )}
+          disabled={
+            cartItems.some((cartItem) => cartItem.foodid === item.foodid) ||
+            item.quantity === 0
+          }
         >
           Add to cart
         </Button>
