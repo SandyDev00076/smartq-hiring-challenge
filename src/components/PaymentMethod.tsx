@@ -3,6 +3,7 @@ import React from "react";
 import { useAppSelector } from "../app/hooks";
 import { Colors } from "../Colors";
 import { selectCartItems } from "../slices/cartSlice";
+import { selectPaymentMethods } from "../slices/paymentMethodSlice";
 import { getTotalCostFromItems } from "../utils.ts";
 import Button from "./Button";
 
@@ -44,13 +45,25 @@ const PaymentsArea = styled.div`
   flex: 1;
 `;
 
+const Method = styled.div`
+  padding: 16px;
+`;
+
 const PaymentMethod = () => {
   const cartItems = useAppSelector(selectCartItems);
+  const methods = useAppSelector(selectPaymentMethods);
+
   return (
     <Container>
       <Header>Select Payment Method</Header>
       <Content>
-        <PaymentsArea></PaymentsArea>
+        <PaymentsArea>
+          {methods.map((method) => (
+            <Method key={method.label}>
+              <input type="checkbox" /> {method.label}
+            </Method>
+          ))}
+        </PaymentsArea>
         <ProceedArea>
           <CartTotal>
             Total amount: $ {getTotalCostFromItems(cartItems)}
