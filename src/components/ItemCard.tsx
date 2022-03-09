@@ -3,6 +3,8 @@ import React from "react";
 import { Colors } from "../Colors";
 import { Item } from "../types/Item";
 import Button from "./Button";
+import Field from "./Field";
+import Input from "./Input";
 
 const Container = styled.div`
   padding: 32px;
@@ -13,12 +15,12 @@ const Container = styled.div`
   background-color: ${Colors.white};
 `;
 
-const DetailRow = styled.div`
+const DetailSection = styled.div`
   display: flex;
   gap: 32px;
-  padding-bottom: 16px;
+  padding-bottom: 24px;
   border-bottom: 1px dashed ${Colors.divider};
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 `;
 
 const ItemImage = styled.img`
@@ -26,7 +28,7 @@ const ItemImage = styled.img`
   border-radius: 10px;
 `;
 
-const MiddleSection = styled.div`
+const TextualData = styled.div`
   flex: 1;
 `;
 
@@ -45,6 +47,17 @@ const Price = styled.h2`
   color: ${Colors.primary};
 `;
 
+const OptionSection = styled.section`
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 200px auto 200px;
+  align-items: end;
+`;
+
+const NoteToTheKitchen = styled.div`
+  grid-column: 1 / span 2;
+`;
+
 interface IItemCardProps {
   item: Item;
 }
@@ -52,15 +65,34 @@ interface IItemCardProps {
 const ItemCard = ({ item }: IItemCardProps) => {
   return (
     <Container>
-      <DetailRow>
+      <DetailSection>
         <ItemImage src={item.imageurl} alt={`${item.foodname}-image`} />
-        <MiddleSection>
+        <TextualData>
           <Name>{item.foodname}</Name>
           <Description>{item.fooddescription}</Description>
           <Button small>Add ons</Button>
-        </MiddleSection>
+        </TextualData>
         <Price>${item.price}</Price>
-      </DetailRow>
+      </DetailSection>
+      <OptionSection>
+        <Field label="Quantity">
+          <Input full type="number" min={0} />
+        </Field>
+        <Field label="Session">
+          <Input full />
+        </Field>
+        <Field label="Sub Total">
+          <Input full readOnly />
+        </Field>
+        <NoteToTheKitchen>
+          <Field label="Note to the kitchen">
+            <Input full />
+          </Field>
+        </NoteToTheKitchen>
+        <Button style={{ height: "48px" }} small>
+          Add to cart
+        </Button>
+      </OptionSection>
     </Container>
   );
 };
